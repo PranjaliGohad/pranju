@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shruti 💖</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  height:100vh;
+  background:linear-gradient(135deg,#ff7eb3,#ff758c);
+  overflow:hidden;
+  transition:background 0.8s ease;
+}
+
+.slide{
+  position:absolute;
+  height:100vh;
+  width:100vw;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  padding:25px;
+  opacity:0;
+  transform:scale(0.9);
+  transition:1s;
+}
+
+.slide.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+h1{
+  font-size:2.2rem;
+  margin-bottom:15px;
+  animation:glow 2s infinite alternate;
+}
+
+p{
+  font-size:1.2rem;
+  line-height:1.6;
+}
+
+.countdown{
+  font-size:2rem;
+  margin-top:20px;
+}
+
+.heart{
+  position:absolute;
+  font-size:18px;
+  animation:float 6s linear infinite;
+  opacity:0.8;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 10px #fff;}
+  to{text-shadow:0 0 30px #fff;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="slide active">
+  <h1>Hey Shruti 💖</h1>
+  <p>
+    This little website  
+    is made just for you 💗
+  </p>
+</div>
+
+<div class="slide">
+  <h1>Someone Special 💞</h1>
+  <p>
+    You bring smiles,  
+    warmth and happiness 💖  
+    everywhere you go 💗
+  </p>
+</div>
+
+<div class="slide">
+  <h1>Birthday Countdown 💗</h1>
+  <div class="countdown" id="countdown"></div>
+  <p>
+    Until your special day 💞
+  </p>
+</div>
+
+<div class="slide">
+  <h1>Almost There 💖</h1>
+  <p>
+    Keep this heart smiling 💗  
+    something beautiful  
+    is waiting for you 💞
+  </p>
+</div>
+
+<script>
+/* Slides */
+const slides = document.querySelectorAll('.slide');
+let i = 0;
+
+/* Background colors */
+const colors = [
+  'linear-gradient(135deg,#ff7eb3,#ff758c)',
+  'linear-gradient(135deg,#ff9a9e,#fad0c4)',
+  'linear-gradient(135deg,#fbc2eb,#a6c1ee)',
+  'linear-gradient(135deg,#ffdde1,#ee9ca7)'
+];
+
+/* Tap anywhere */
+document.body.addEventListener('click', () => {
+  slides[i].classList.remove('active');
+  i = (i + 1) % slides.length;
+  slides[i].classList.add('active');
+  document.body.style.background = colors[i];
+});
+
+/* Birthday date: 27 Feb (auto updates daily) */
+const birthday = new Date(new Date().getFullYear(), 1, 27);
+
+setInterval(() => {
+  const now = new Date();
+  let diff = birthday - now;
+
+  if(diff <= 0){
+    document.getElementById("countdown").innerHTML = "Today 💖";
+    return;
+  }
+
+  let days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  document.getElementById("countdown").innerHTML =
+    `${days} Days To Go 💗`;
+}, 1000);
+
+/* Floating hearts */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}, 350);
+</script>
+
+</body>
+</html>
